@@ -41,7 +41,7 @@ const onSignIn = () => {
      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View style={{ flex: 1, justifyContent: "flex-end" }}>
      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      keyboardVerticalOffset={Platform.OS === "ios" ? -180 : -136}
+      keyboardVerticalOffset={Platform.OS === "ios" ? -180 : -140}
       >
  
       <View style={styles.formContainer }>
