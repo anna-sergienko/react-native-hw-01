@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { ImageBackground, 
   StyleSheet, 
   Text, 
@@ -7,10 +8,33 @@ import { ImageBackground,
   Platform, 
   KeyboardAvoidingView,  
   Keyboard,
-  TouchableWithoutFeedback} from 'react-native';
+  TouchableWithoutFeedback,
+  Alert
+} from 'react-native';
 
 
 export default function LoginScreen(){
+  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
+  const [showPassword, setShowPassword] = useState(true);
+  const [focusEmail, setFocusEmail] = useState(false);
+  const [focusPassword, setFocusPassword] = useState(false);
+
+
+const passwordHandler = (text) => setPassword(text);
+const emailHandler = (text) => setEmail(text);
+
+
+
+const onShowPassword = () =>{
+  setShowPassword(!showPassword)
+};
+
+
+const onLogin = () => {
+  Alert.alert(`Password: ${password}, E-mail: ${email}`);
+};
+
     return (
 
      <ImageBackground 
@@ -20,7 +44,7 @@ export default function LoginScreen(){
         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         <View style={{ flex: 1, justifyContent: "flex-end" }}>
         <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      keyboardVerticalOffset={Platform.OS === "ios" ? -235 : -136}
+      keyboardVerticalOffset={Platform.OS === "ios" ? -235 : -140}
       >
      <View style={styles.formContainer}>
 
@@ -30,22 +54,40 @@ export default function LoginScreen(){
 
       <View> 
         <TextInput
-        style={styles.input}
-    placeholder="Адреса електронної пошти"
-    placeholderTextColor="#BDBDBD"
+        value={email}
+        onChangeText={emailHandler}
+        onFocus={()=>setFocusEmail(true)}
+        onBlur={() => setFocusEmail(false)}
+        style={[
+          styles.input,
+          {
+            borderColor: focusEmail ? "#FFA500" : "#E8E8E8",
+          },
+        ]}
+        placeholder="Адреса електронної пошти"
+        placeholderTextColor="#BDBDBD"
     />
         <TextInput
-        style={styles.input}
-    placeholder="Пароль"
-    placeholderTextColor="#BDBDBD"
-    secureTextEntry={true}
+        onFocus={()=>setFocusPassword(true)}
+        onBlur={() => setFocusPassword(false)}
+        style={[
+          styles.input,
+          {
+            borderColor: focusPassword ? "#FFA500" : "#E8E8E8",
+          },
+        ]}
+        value={password}
+        onChangeText={passwordHandler}
+        placeholder="Пароль"
+        placeholderTextColor="#BDBDBD"
+        secureTextEntry={showPassword}
     />
-   <TouchableOpacity activeOpacity={0.8} >
-      <Text style={styles.showPswrdBtn}>Показати</Text>
+   <TouchableOpacity activeOpacity={0.8} onPress={onShowPassword}>
+      <Text style={styles.showPswrdBtn}>{showPassword ? "Показати" : "Приховати"}</Text>
   </TouchableOpacity>
     </View>
 
-    <TouchableOpacity activeOpacity={0.8} style={styles.button}>
+    <TouchableOpacity activeOpacity={0.8} style={styles.button} onPress={onLogin}>
       <Text style={styles.buttonTitle}>Увійти</Text>
     </TouchableOpacity>
 
@@ -105,6 +147,19 @@ const styles = StyleSheet.create({
       paddingBottom: 16,
       backgroundColor: "#F6F6F6",
       borderColor: "#E8E8E8",
+      borderRadius: 10,
+    },
+    inputActive:{
+      height: 50,
+      width: 343,
+      margin: 0,
+      marginBottom: 16,
+      borderWidth: 1,
+      paddingLeft: 16,
+      paddingTop: 16,
+      paddingBottom: 16,
+      backgroundColor: "#F6F6F6",
+      borderColor: "#FF6C00",
       borderRadius: 10,
     },
     button :{

@@ -18,6 +18,10 @@ const [login, setLogin] = useState("");
 const [password, setPassword] = useState('');
 const [email, setEmail] = useState('');
 const [showPassword, setShowPassword] = useState(true);
+const [focusLogin, setFocusLogin] = useState(false);
+const [focusEmail, setFocusEmail] = useState(false);
+const [focusPassword, setFocusPassword] = useState(false);
+
 
 
 const loginHandler = (text) => setLogin(text);
@@ -30,7 +34,7 @@ const onShowPassword = () =>{
 
 
 const onSignIn = () => {
-  Alert.alert("Credentials", `${login} + ${password} + ${email}`);
+  Alert.alert(`Login: ${login}, Password: ${password}, E-mail: ${email}`);
 };
 
     return (
@@ -58,14 +62,28 @@ const onSignIn = () => {
        <TextInput
         value={login}
         onChangeText={loginHandler}
+        onFocus={()=>setFocusLogin(true)}
+        onBlur={() => setFocusLogin(false)}
         placeholder="Логін"
         placeholderTextColor="#BDBDBD"
-        style={styles.input}
+        style={[
+          styles.input,
+          {
+            borderColor: focusLogin ? "#FFA500" : "#E8E8E8",
+          },
+        ]}
     />
         <TextInput
          value={email}
          onChangeText={emailHandler}
-        style={styles.input}
+         onFocus={()=>setFocusEmail(true)}
+         onBlur={() => setFocusEmail(false)}
+        style={[
+          styles.input,
+          {
+            borderColor: focusEmail ? "#FFA500" : "#E8E8E8",
+          },
+        ]}
         placeholder="Адреса електронної пошти"
         placeholderTextColor="#BDBDBD"
     />
@@ -73,7 +91,14 @@ const onSignIn = () => {
          value={password}
          onChangeText={passwordHandler}
          secureTextEntry={showPassword}
-        style={styles.input}
+         onFocus={()=>setFocusPassword(true)}
+        onBlur={() => setFocusPassword(false)}
+        style={[
+          styles.input,
+          {
+            borderColor: focusPassword ? "#FFA500" : "#E8E8E8",
+          },
+        ]}
         placeholder="Пароль"
         placeholderTextColor="#BDBDBD"
     />
