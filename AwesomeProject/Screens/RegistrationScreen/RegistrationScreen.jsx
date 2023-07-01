@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { ImageBackground, 
   StyleSheet, 
   Text, 
@@ -8,9 +9,29 @@ import { ImageBackground,
   Platform, 
   KeyboardAvoidingView,  
   Keyboard,
-  TouchableWithoutFeedback } from 'react-native';
+  TouchableWithoutFeedback,
+Alert
+} from 'react-native';
 
 export default function RegistrationScreen (){
+const [login, setLogin] = useState("");
+const [password, setPassword] = useState('');
+const [email, setEmail] = useState('');
+const [showPassword, setShowPassword] = useState(true);
+
+
+const loginHandler = (text) => setLogin(text);
+const passwordHandler = (text) => setPassword(text);
+const emailHandler = (text) => setEmail(text);
+
+const onShowPassword = () =>{
+  setShowPassword(!showPassword)
+};
+
+
+const onSignIn = () => {
+  Alert.alert("Credentials", `${login} + ${password} + ${email}`);
+};
 
     return (
      <ImageBackground 
@@ -33,29 +54,35 @@ export default function RegistrationScreen (){
       <Text style={styles.formTitle}>Реєстрація</Text>
       </View> 
 
-       <View>
+    <View>
        <TextInput
-    placeholder="Логін"
-    placeholderTextColor="#BDBDBD"
-    style={styles.input}
+        value={login}
+        onChangeText={loginHandler}
+        placeholder="Логін"
+        placeholderTextColor="#BDBDBD"
+        style={styles.input}
     />
         <TextInput
+         value={email}
+         onChangeText={emailHandler}
         style={styles.input}
-    placeholder="Адреса електронної пошти"
-    placeholderTextColor="#BDBDBD"
+        placeholder="Адреса електронної пошти"
+        placeholderTextColor="#BDBDBD"
     />
         <TextInput
+         value={password}
+         onChangeText={passwordHandler}
+         secureTextEntry={showPassword}
         style={styles.input}
-    placeholder="Пароль"
-    placeholderTextColor="#BDBDBD"
-    secureTextEntry={true}
+        placeholder="Пароль"
+        placeholderTextColor="#BDBDBD"
     />
    <TouchableOpacity activeOpacity={0.8} >
-      <Text style={styles.showPswrdBtn}>Показати</Text>
+      <Text style={styles.showPswrdBtn} onPress={onShowPassword}>{showPassword ? "Показати" : "Приховати"}</Text>
   </TouchableOpacity>
     </View>
 
-    <TouchableOpacity activeOpacity={0.8} style={styles.button}>
+    <TouchableOpacity activeOpacity={0.8} style={styles.button} onPress={onSignIn}>
       <Text style={styles.buttonTitle}>Зареєстуватися</Text>
     </TouchableOpacity>
 
