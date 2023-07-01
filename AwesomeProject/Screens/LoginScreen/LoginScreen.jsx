@@ -1,12 +1,29 @@
-import { ImageBackground, StyleSheet, Text, View, TextInput, TouchableOpacity} from 'react-native';
+import { ImageBackground, 
+  StyleSheet, 
+  Text, 
+  View, 
+  TextInput, 
+  TouchableOpacity,
+  Platform, 
+  KeyboardAvoidingView,  
+  Keyboard,
+  TouchableWithoutFeedback} from 'react-native';
+
+
 export default function LoginScreen(){
     return (
-<View style={styles.container}>
+
      <ImageBackground 
      style={styles.image}
      source={require('../../assets/nature-bg.jpg')}
      >
+        <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        <View style={{ flex: 1, justifyContent: "flex-end" }}>
+        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      keyboardVerticalOffset={Platform.OS === "ios" ? -235 : -136}
+      >
      <View style={styles.formContainer}>
+
       <View style={styles.titleContainer}>
       <Text style={styles.formTitle}>Увійти</Text>
       </View>
@@ -36,25 +53,22 @@ export default function LoginScreen(){
       <Text style={styles.loginCase}>Немає акаунту? Зареєструватися</Text>
     </TouchableOpacity>
       </View>
+
+      </KeyboardAvoidingView>
+      </View>
+      </TouchableWithoutFeedback>
      </ImageBackground>
-    </View>
     )
 }
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      justifyContent: 'center',
-    },
     image: {
-      flex: 1,
-      justifyContent: 'center',
-      resizeMode: 'cover',
-      alignItems: 'center',
+      flex: 1, 
+      resizeMode: "cover",
+      justifyContent:"center",
   
     },
     formContainer: {
-      flex: 1,
       backgroundColor:"#FFFFFF",
       height: 489,
       width: "100%",
@@ -73,7 +87,6 @@ const styles = StyleSheet.create({
   letterSpacing: 0.3,
     },
     titleContainer: {
-      display: "block",
       width: 343,
       height: 36,
       justifyContent: "center",
@@ -95,7 +108,6 @@ const styles = StyleSheet.create({
       borderRadius: 10,
     },
     button :{
-  display: "flex",
   width: 343,
   height: 50,
   paddingTop: 16,
@@ -117,9 +129,6 @@ const styles = StyleSheet.create({
       color: "#1B4371",
   textAlign: "center",
   fontSize: 16,
-    },
-    loginCaseContainer:{
-  display: "block",
     },
     showPswrdBtn:{
   color: "#1B4371",

@@ -1,22 +1,39 @@
-import { ImageBackground, StyleSheet, Text, View, TextInput, TouchableOpacity, Image } from 'react-native';
+import { ImageBackground, 
+  StyleSheet, 
+  Text, 
+  View, 
+  TextInput, 
+  TouchableOpacity, 
+  Image, 
+  Platform, 
+  KeyboardAvoidingView,  
+  Keyboard,
+  TouchableWithoutFeedback } from 'react-native';
 
 export default function RegistrationScreen (){
 
     return (
-<View style={styles.container}>
      <ImageBackground 
      style={styles.image}
      source={require('../../assets/nature-bg.jpg')}
-     >
-      
-     <View style={styles.formContainer}>
+     > 
+     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+      <View style={{ flex: 1, justifyContent: "flex-end" }}>
+     <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      keyboardVerticalOffset={Platform.OS === "ios" ? -180 : -136}
+      >
+ 
+      <View style={styles.formContainer }>
+
      <View style={styles.profPicContainer}></View>
+
      <Image source={require("../../assets/add.png")} style={styles.addIcon}/>
+
       <View style={styles.titleContainer}>
       <Text style={styles.formTitle}>Реєстрація</Text>
-      </View>
+      </View> 
 
-      <View> 
+       <View>
        <TextInput
     placeholder="Логін"
     placeholderTextColor="#BDBDBD"
@@ -45,29 +62,26 @@ export default function RegistrationScreen (){
     <TouchableOpacity activeOpacity={0.8}>
       <Text style={styles.loginCase}>Вже є акаунт? Увійти</Text>
     </TouchableOpacity>
-      </View>
-     </ImageBackground>
     </View>
+   
+   
+    
+      </KeyboardAvoidingView>
+      </View>
+      </TouchableWithoutFeedback>
+     </ImageBackground>
 
     )
 }
 
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      justifyContent: 'center',
-      
-    },
     image: {
-      flex: 1,
-      justifyContent: 'center',
-      resizeMode: 'cover',
-      alignItems: 'center',
-  
+      flex: 1, 
+      resizeMode: "cover",
+      justifyContent:"center",
     },
     formContainer: {
-      flex: 1,
       backgroundColor:"#FFFFFF",
       height:549,
       width: "100%",
@@ -87,7 +101,6 @@ const styles = StyleSheet.create({
   letterSpacing: 0.3,
     },
     titleContainer: {
-      display: "block",
       width: 343,
       height: 36,
       justifyContent: "center",
@@ -110,7 +123,6 @@ const styles = StyleSheet.create({
       borderRadius: 10,
     },
     button :{
-  display: "flex",
   width: 343,
   height: 50,
   paddingTop: 16,
@@ -135,23 +147,20 @@ const styles = StyleSheet.create({
   height: 120,
   borderRadius: 16,
   backgroundColor: "#F6F6F6",
-  top: -55,
-  left: 130,
+  top: -60,
+  left: 140,
     },
     addIcon:{
       width: 25,
   height: 25,
   position: "absolute",
   top: 20,
-  left: 235,
+  left: 245,
     },
     loginCase: {
       color: "#1B4371",
   textAlign: "center",
   fontSize: 16,
-    },
-    loginCaseContainer:{
-  display: "block",
     },
     showPswrdBtn:{
   color: "#1B4371",
