@@ -34,7 +34,6 @@ export default function App() {
           name="Home"
           component={Home}
           options={{
-            title: "Публікації",
             headerStyle: {
               backgroundColor: "#FFFFFF",
             },
