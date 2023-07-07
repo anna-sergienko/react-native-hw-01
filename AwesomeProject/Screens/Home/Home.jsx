@@ -101,7 +101,7 @@ export default function Home() {
               <Feather
                 name="arrow-left"
                 size={24}
-                color="#FF6C00"
+                color="#212121CC"
               />
             </TouchableOpacity>
           ),
